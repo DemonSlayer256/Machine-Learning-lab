@@ -62,7 +62,7 @@ def main():
     # Load and preprocess data
     X, y = load_and_preprocess_data(file_path, target_column_name, drop_indices)
     
-    #Variable name suggested by @ChethanRaj13. In loving memory of his japanese husband.❤️
+    #Variable name suggested by @ChethanRaj13.
     yamamoto = [0.70, 0.90]
     # Split data
     
