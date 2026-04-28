@@ -7,7 +7,7 @@ from sklearn.preprocessing import LabelEncoder
 def display_columns(df):
     print("Columns in the dataset:")
     for idx, col in enumerate(df.columns):
-        print(f"{idx}: {col}")
+        print(f"{idx}: {col} - {df[col].dtype} - {df[col].head(3).values}")
 
 def get_column_indices(prompt, max_index):
     while True:
@@ -59,26 +59,25 @@ def main():
     target_idx = int(input("Enter the serial number of the target column: "))
     target_column_name = df.columns[target_idx]
     
-    train_ratio = float(input("Enter training data ratio (e.g., 0.9 for 90%): "))
-    if not (0 < train_ratio < 1):
-        print("Invalid ratio. Using default 0.8.")
-        train_ratio = 0.8
-    
     # Load and preprocess data
     X, y = load_and_preprocess_data(file_path, target_column_name, drop_indices)
     
+    #Variable name suggested by @ChethanRaj13. In loving memory of his japanese husband.❤️
+    yamamoto = [0.70, 0.90]
     # Split data
-    test_size = 1 - train_ratio
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=test_size, random_state=42
-    )
     
-    # Train and evaluate
-    nb = GaussianNB()
-    nb.fit(X_train, y_train)
-    y_pred = nb.predict(X_test)
-    accuracy = accuracy_score(y_test, y_pred)
-    print(f"\nModel Accuracy: {accuracy:.4f}")
+    for train_ratio in yamamoto:
+        test_size = 1 - train_ratio
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=test_size, random_state=42
+        )
+
+        # Train and evaluate
+        nb = GaussianNB()
+        nb.fit(X_train, y_train)
+        y_pred = nb.predict(X_test)
+        accuracy = accuracy_score(y_test, y_pred)
+        print(f"\nModel Accuracy for train of {train_ratio}: {accuracy}")
 
 if __name__ == "__main__":
     main()
