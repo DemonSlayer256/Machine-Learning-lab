@@ -14,6 +14,13 @@ X = np.vstack([
     np.random.randn(50, 2) * 0.5 + [10, 0]
 ])
 
+
+# For messy data or more realistic data, we can use the following
+# X = np.vstack([
+#     np.random.randn(50, 2) * 2.0 + [0, 0],   # Increased spread
+#     np.random.randn(50, 2) * 2.0 + [5, 5],
+#     np.random.randn(50, 2) * 2.0 + [10, 0]
+# ])
 # K-Means Clustering
 k = int(input("Enter the value of K for clustering:"))
 # Number of clusters
